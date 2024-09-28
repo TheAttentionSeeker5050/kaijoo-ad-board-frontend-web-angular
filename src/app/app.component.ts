@@ -12,10 +12,9 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'kaijoo-frontend-web';
+  title = 'Kaijoo: a Kijiji Clone';
 
   constructor(private router: Router) {}
-
 
   // Method to check if the current route matches login or register
   shouldShowHeaderFooter(): boolean {

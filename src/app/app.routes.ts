@@ -8,10 +8,10 @@ import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'posts', component: PostsComponent },
-  { path: 'categories', component: CategoriesComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: '', component: HomeComponent, title: 'Kaijoo: a Kijiji Clone' },
+  { path: 'login', component: LoginComponent, title: 'Kaijoo - Login' },
+  { path: 'register', component: RegisterComponent, title: 'Kaijoo - Register' },
+  { path: 'posts', component: PostsComponent, title: 'Kaijoo - Posts' },
+  { path: 'categories', component: CategoriesComponent, title: 'Kaijoo - Categories' },
+  { path: 'profile', component: ProfileComponent, title: 'Kaijoo - Profile' },
 ];
