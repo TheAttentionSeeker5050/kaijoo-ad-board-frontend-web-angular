@@ -1,4 +1,4 @@
-# Angular Frontend Client for Kaijuu: Kijiji Clone
+# Angular Frontend Client for Kaijoo: Kijiji Clone
 
 # Features
 - User can log in and out, register

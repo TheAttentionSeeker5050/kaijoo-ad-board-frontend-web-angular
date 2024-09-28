@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'kaijuu-frontend-web';
+  title = 'kaijoo-frontend-web';
 
   constructor(private router: Router) {}
 

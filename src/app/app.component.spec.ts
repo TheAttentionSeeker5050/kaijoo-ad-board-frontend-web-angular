@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'kaijuu-frontend-web' title`, () => {
+  it(`should have the 'kaijoo-frontend-web' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('kaijuu-frontend-web');
+    expect(app.title).toEqual('kaijoo-frontend-web');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, kaijuu-frontend-web');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, kaijoo-frontend-web');
   });
 });
