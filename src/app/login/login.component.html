@@ -1,14 +1,30 @@
 <h2>Login</h2>
 
-<form>
-  <!-- <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"> -->
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
-    <label for="username">Username</label>
-    <input type="text" class="form-control" formControlName="username" id="username">
+    <label for="email">Email: </label>
+    <input type="text" class="form-control" formControlName="email" id="email">
+    <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+      Please enter a valid email address.
+    </div>
   </div>
+
   <div class="form-group">
-    <label for="password">Password</label>
+    <label for="password">Password: </label>
     <input type="password" class="form-control" formControlName="password" id="password">
+    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+      Password is required.
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary">Login</button>
+
+  <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+
+  <p *ngIf="loginForm.invalid && loginForm.touched" class="text-danger">
+    Please enter a valid email and password.
+  </p>
+
+  <p>
+    Don't have an account? <a routerLink="/register" >Register here</a>
+  </p>
 </form>
