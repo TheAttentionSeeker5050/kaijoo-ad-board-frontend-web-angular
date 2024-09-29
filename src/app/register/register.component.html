@@ -43,6 +43,16 @@
     Please enter a valid email, name and password.
   </p>
 
+  <!-- display custom error -->
+  <p *ngIf="errorMessage" class="text-danger">
+    {{ errorMessage }}
+  </p>
+
+  <!-- display success message -->
+  <p *ngIf="successMessage" class="text-success">
+    {{ successMessage }}
+  </p>
+
   <p>
     Already have an account? <a routerLink="/login" >Login here</a>
   </p>

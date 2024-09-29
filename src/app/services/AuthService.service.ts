@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthServiceService {
+export class AuthService {
 
   baseUrl = 'http://localhost:8080';
 
@@ -12,11 +12,17 @@ export class AuthServiceService {
   constructor(private http: HttpClient) {
   }
 
-  authenticate(username: string, password: string)  {
-    return this.http.post(`${this.baseUrl}/auth/generateToken`, {
-      username: username,
-      password: password
-    });
+  authenticate(email: string, password: string)  {
+    return this.http.post(`${this.baseUrl}/auth/generateToken`, JSON.stringify({
+        email: email,
+        password: password
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
   }
 
   renewToken(token: string) {
@@ -36,5 +42,14 @@ export class AuthServiceService {
   viewProfile() {
     return this.http.get(`${this.baseUrl}/auth/user/userProfile`);
   }
+
+  viewWelcomeScreen() {
+    return this.http.get(`${this.baseUrl}/auth/welcome`);
+  }
+
+
+  // create a new Type of Error called AuthServiceResponseError
+
+
 
 }

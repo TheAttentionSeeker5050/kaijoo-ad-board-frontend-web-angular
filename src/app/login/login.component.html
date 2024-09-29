@@ -24,6 +24,16 @@
     Please enter a valid email and password.
   </p>
 
+  <!-- display custom error -->
+  <p *ngIf="errorMessage" class="text-danger">
+    {{ errorMessage }}
+  </p>
+
+  <!-- display success message -->
+  <p *ngIf="successMessage" class="text-success">
+    {{ successMessage }}
+  </p>
+
   <p>
     Don't have an account? <a routerLink="/register" >Register here</a>
   </p>
