@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -6,8 +6,6 @@ import { Component, OnInit } from '@angular/core';
   standalone: true,
   styleUrls: ['./footer.component.sass']
 })
-export class FooterComponent {
-
-  constructor() { }
+export class FooterComponent  {
 
 }
