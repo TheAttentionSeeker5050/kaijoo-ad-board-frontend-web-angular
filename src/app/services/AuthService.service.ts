@@ -13,7 +13,7 @@ export class AuthService {
   }
 
   authenticate(email: string, password: string)  {
-    return this.http.post(`${this.baseUrl}/auth/generateToken`, JSON.stringify({
+    return this.http.post(`${this.baseUrl}/auth/authenticate`, JSON.stringify({
         email: email,
         password: password
       }),

@@ -58,6 +58,9 @@ export class LoginComponent implements OnInit {
           // Set cookie
           document.cookie = `token=${response.authToken};`;
 
+          // Set local storage
+          localStorage.setItem('token', response.authToken);
+
         },
         error: (error) => {
           // Return the error message depending on the status code
@@ -74,6 +77,9 @@ export class LoginComponent implements OnInit {
 
           // delete the cookie
           document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+          // delete the local storage
+          localStorage.removeItem('token');
         },
         complete: () => {
           this.successMessage = 'Login successful!';

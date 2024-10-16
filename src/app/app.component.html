@@ -4,8 +4,9 @@
 
 <!-- <h1 hidden>Kaijoo: a Kijiji Clone</h1> -->
 
-<!-- Conditionally show header -->
-<app-header *ngIf="shouldShowHeaderFooter()"></app-header>
+<!-- Conditionally show header, include isUserLoggedIn as a parameter arrow function with result boolean -->
+<app-header *ngIf="shouldShowHeaderFooter()"
+></app-header>
 
 <!-- Main content -->
 <main id="main">

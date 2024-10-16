@@ -16,6 +16,7 @@ export class AppComponent {
 
   constructor(private router: Router) {}
 
+
   // Method to check if the current route matches login or register
   shouldShowHeaderFooter(): boolean {
     // Hide header/footer on login or register routes

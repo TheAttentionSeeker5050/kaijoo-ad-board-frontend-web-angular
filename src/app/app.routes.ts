@@ -6,6 +6,7 @@ import { PostsComponent } from './posts/posts.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
+import { LogoutComponent } from './logout/logout.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Kaijoo: a Kijiji Clone' },
@@ -14,4 +15,5 @@ export const routes: Routes = [
   { path: 'posts', component: PostsComponent, title: 'Kaijoo - Posts' },
   { path: 'categories', component: CategoriesComponent, title: 'Kaijoo - Categories' },
   { path: 'profile', component: ProfileComponent, title: 'Kaijoo - Profile' },
+  {path: 'logout', component: LogoutComponent, title: 'Kaijoo - Logout'}
 ];

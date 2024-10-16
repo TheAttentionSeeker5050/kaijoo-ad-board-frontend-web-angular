@@ -90,6 +90,9 @@ export class RegisterComponent implements OnInit {
           // delete the cookie
           document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
+          // delete the local storage
+          localStorage.removeItem('token');
+
           // Redirect to the login page after 2 seconds
           setTimeout(() => {
             this.router.navigate(['/login']);

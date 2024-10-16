@@ -1,13 +1,15 @@
 <header>
   <div id="header-top">
 
-      <a routerLink="/" routerLinkActive="active" id="app-logo">Kaijoo</a>
-
+    <a routerLink="/" routerLinkActive="active" id="app-logo">Kaijoo</a>
 
     <nav>
       <a routerLink="/" routerLinkActive="active">Home</a>
       <a routerLink="/posts" routerLinkActive="active">Posts</a>
-      <a routerLink="/profile" routerLinkActive="active">Profile</a>
+      <!-- if the isUserLoggedIn() is true, display profile link else display login link -->
+      <a *ngIf="isUserLoggedIn()" routerLink="/profile" routerLinkActive="active">Profile</a>
+      <a *ngIf="isUserLoggedIn()" routerLink="/logout" routerLinkActive="active">Logout</a>
+      <a *ngIf="!isUserLoggedIn()" routerLink="/login" routerLinkActive="active">Login</a>
     </nav>
   </div>
   <form id="search-form">
