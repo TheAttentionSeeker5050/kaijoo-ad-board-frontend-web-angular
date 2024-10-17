@@ -4,8 +4,9 @@
     <a routerLink="/" routerLinkActive="active" id="app-logo">Kaijoo</a>
 
     <nav>
-      <a routerLink="/" routerLinkActive="active">Home</a>
-      <a routerLink="/posts" routerLinkActive="active">Posts</a>
+      <!-- <a routerLink="/" routerLinkActive="active">Home</a> -->
+      <a routerLink="/posts" routerLinkActive="active">Browse ads</a>
+
       <!-- if the isUserLoggedIn() is true, display profile link else display login link -->
       <a *ngIf="isUserLoggedIn()" routerLink="/profile" routerLinkActive="active">Profile</a>
       <a *ngIf="isUserLoggedIn()" routerLink="/logout" routerLinkActive="active">Logout</a>

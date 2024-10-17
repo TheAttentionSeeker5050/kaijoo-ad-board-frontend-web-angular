@@ -40,7 +40,11 @@ export class AuthService {
   }
 
   viewProfile() {
-    return this.http.get(`${this.baseUrl}/auth/user/userProfile`);
+    return this.http.get(`${this.baseUrl}/auth/user/userProfile`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
   }
 
   viewWelcomeScreen() {

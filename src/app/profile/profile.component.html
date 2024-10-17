@@ -1,3 +1,22 @@
+<h2>
+  Profile
+</h2>
+
 <p>
-  This is the profile component.
+  Welcome, {{ userData.name }}!
 </p>
+
+<h3>
+  Your classified ads
+</h3>
+
+<p *ngIf="latestPosts.length === 0">
+  You haven't posted any classified ads yet.
+</p>
+
+<ul>
+  <li *ngFor="let post of latestPosts">
+    {{ post }}
+  </li>
+</ul>
+
