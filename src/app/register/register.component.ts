@@ -5,13 +5,15 @@ import { Router, RouterLink } from '@angular/router';
 import { RegisterModel } from '../../models/Register.model';
 import { AuthService } from '../services/AuthService.service';
 import { CustomHttpResponseError } from '../../models/CustomHttpResponseError.model';
+import { LocalStorageServiceService } from '../services/LocalStorageService.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.sass', '../global/styles/forms.sass'],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink, AsyncPipe]
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, AsyncPipe],
+  providers: [LocalStorageServiceService]
 })
 export class RegisterComponent implements OnInit {
 
@@ -23,7 +25,12 @@ export class RegisterComponent implements OnInit {
   // the success message to display
   successMessage: string = '';
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private localStorageService: LocalStorageServiceService
+  ) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -91,7 +98,7 @@ export class RegisterComponent implements OnInit {
           document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
           // delete the local storage
-          localStorage.removeItem('token');
+          this.localStorageService.remove('token');
 
           // Redirect to the login page after 2 seconds
           setTimeout(() => {

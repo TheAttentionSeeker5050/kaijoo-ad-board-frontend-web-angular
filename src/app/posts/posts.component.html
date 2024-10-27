@@ -1,3 +1,18 @@
-<p>
-  This is the posts component.
-</p>
+<h2>Browse Ads</h2>
+
+<!-- This is the container of the ads listing, have something like a horizontal list with the following dom parts: title, content (first 100 characters), thumbnail, price, location -->
+<div id="ads-listings-horizontal">
+  @for(ad of adsList; track ad.id) {
+    <div class="ad" id="{{ad.id}}">
+      <div class="ad-thumb">
+        <img src="{{ad.thumbnail}}" alt="{{ad.title}}">
+      </div>
+      <div class="ad-meta">
+        <h3 class="ad-title">{{ad.title}}</h3>
+        <p class="ad-description">{{ad.description}}</p>
+        <p class="ad-price">${{ad.price}}</p>
+        <p class="ad-location">{{ad.location}}</p>
+      </div>
+    </div>
+  }
+</div>

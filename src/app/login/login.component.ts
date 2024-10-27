@@ -6,13 +6,15 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/AuthService.service';
 import { Observable } from 'rxjs';
 import { CustomHttpResponseError } from '../../models/CustomHttpResponseError.model';
+import { LocalStorageServiceService } from '../services/LocalStorageService.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.sass', '../global/styles/forms.sass'],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink, AsyncPipe]
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, AsyncPipe],
+  providers: [LocalStorageServiceService]
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
@@ -23,7 +25,12 @@ export class LoginComponent implements OnInit {
   // the success message to display
   successMessage: string = '';
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private localStorageService: LocalStorageServiceService
+  ) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -59,7 +66,7 @@ export class LoginComponent implements OnInit {
           document.cookie = `token=${response.authToken};`;
 
           // Set local storage
-          localStorage.setItem('token', response.authToken);
+          this.localStorageService.set('token', response.authToken);
 
         },
         error: (error) => {
@@ -79,7 +86,7 @@ export class LoginComponent implements OnInit {
           document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
           // delete the local storage
-          localStorage.removeItem('token');
+          this.localStorageService.remove('token');
         },
         complete: () => {
           this.successMessage = 'Login successful!';

@@ -1,0 +1,35 @@
+#ads-listings-horizontal
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  gap: 1rem
+  padding: 1rem
+
+  .ad
+    display: flex
+    flex-direction: row
+    gap: 1rem
+    justify-content: space-between
+    border: 1px solid #ccc
+    border-radius: 5px
+
+    .ad-meta
+      flex-grow: 1
+
+      .ad-price
+        font-size: 0.9rem
+        font-weight: bold
+        color: #0c630c
+
+      .ad-location
+        font-size: 0.9rem
+        color: #666
+
+    .ad-thumb
+      display: flex
+      justify-content: center
+      padding: 10px
+
+      img
+        max-width: 200px
+        height: auto
