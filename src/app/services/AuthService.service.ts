@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   renewToken(token: string) {
-    return this.http.post(`${this.baseUrl}/auth/renewToken`, {
+    return this.http.post(`${this.baseUrl}/auth/renew-token`, {
       token: token
     });
   }

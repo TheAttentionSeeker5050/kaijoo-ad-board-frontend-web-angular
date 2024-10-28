@@ -2,6 +2,15 @@
   Register
 </h2>
 
+<!-- display custom error -->
+<p *ngIf="errorMessage" class="errorMsgCard">
+  {{ errorMessage }}
+</p>
+
+<!-- display success message -->
+<p *ngIf="successMessage" class="successMsgCard">
+  {{ successMessage }}
+</p>
 
 
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
@@ -41,16 +50,6 @@
 
   <p *ngIf="registerForm.invalid && registerForm.touched" class="text-danger">
     Please enter a valid email, name and password.
-  </p>
-
-  <!-- display custom error -->
-  <p *ngIf="errorMessage" class="text-danger">
-    {{ errorMessage }}
-  </p>
-
-  <!-- display success message -->
-  <p *ngIf="successMessage" class="text-success">
-    {{ successMessage }}
   </p>
 
   <p>

@@ -1,5 +1,18 @@
 <h2>Login</h2>
 
+@if (successMessage) {
+  <!-- display success message -->
+  <p class="successMsgCard">
+    {{ successMessage }}
+  </p>
+}
+
+@else if (errorMessage) {
+  <!-- display custom error -->
+  <p class="errorMsgCard">
+    {{ errorMessage }}
+  </p>
+}
 
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
@@ -22,16 +35,6 @@
 
   <p *ngIf="loginForm.invalid && loginForm.touched" class="text-danger">
     Please enter a valid email and password.
-  </p>
-
-  <!-- display custom error -->
-  <p *ngIf="errorMessage" class="text-danger">
-    {{ errorMessage }}
-  </p>
-
-  <!-- display success message -->
-  <p *ngIf="successMessage" class="text-success">
-    {{ successMessage }}
   </p>
 
   <p>

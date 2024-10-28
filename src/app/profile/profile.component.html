@@ -2,21 +2,30 @@
   Profile
 </h2>
 
-<p>
-  Welcome, {{ userData.name }}!
-</p>
+<!-- if no errorMessage, display page, otherwise, display error  -->
+ @if (errorMessage) {
+   <p class="errorMsgCard">
+     {{ errorMessage }}
+   </p>
 
-<h3>
-  Your classified ads
-</h3>
+   <a routerLink="/login">Click here to redirect immediately to the login page</a>
+} @else {
 
-<p *ngIf="latestPosts.length === 0">
-  You haven't posted any classified ads yet.
-</p>
+  <p>
+    Welcome, {{ userData.name }}!
+  </p>
 
-<ul>
-  <li *ngFor="let post of latestPosts">
-    {{ post }}
-  </li>
-</ul>
+  <h3>
+    Your classified ads
+  </h3>
 
+  <p *ngIf="latestPosts.length === 0">
+    You haven't posted any classified ads yet.
+  </p>
+
+  <ul *ngIf="latestPosts.length > 0">
+    <li *ngFor="let post of latestPosts">
+      {{ post }}
+    </li>
+  </ul>
+}
