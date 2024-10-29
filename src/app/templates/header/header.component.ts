@@ -19,7 +19,7 @@ export class HeaderComponent {
   // Method to either display Profile or Login in the header
   isUserLoggedIn(): boolean {
     // Check if the user has a token in local storage, this does not check if the token is valid, just if it exists
-    return !!this.localStorageService.get('token');
+    return !!this.localStorageService.get('token') || (new Date(this.localStorageService.get('expirationDate') || new Date(Date.now() + 10000000000)) < new Date());
   }
 
 

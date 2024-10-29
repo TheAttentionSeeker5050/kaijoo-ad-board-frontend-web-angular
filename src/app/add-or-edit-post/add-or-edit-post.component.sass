@@ -1,0 +1,55 @@
+#add-or-edit-post-form
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  flex-wrap: wrap
+  min-height: 100%
+  gap: 15px
+
+  .form-group
+    width: 45%
+    display: flex
+    flex-direction: column
+
+    label
+      margin-bottom: 5px
+
+    input, textarea
+      padding: 10px
+      border-radius: 5px
+      border: 1px solid #ccc
+      margin-bottom: 10px
+
+  .text-form-group
+    width: 100%
+
+    textarea, editor
+      min-height: 250px
+      resize: none
+
+  #btn-group
+    width: 100%
+    margin-top: 10px
+    display: flex
+    justify-content: center
+    gap: 20px
+
+    button
+      width: 100px
+      padding: 10px
+      border-radius: 5px
+      border: none
+      color: white
+      cursor: pointer
+
+    #submit-button
+      background-color: #008CBA
+      border-color: #008CBA
+
+      &:hover
+        background-color: #006080
+
+    #cancel-button
+      background-color: #f44336
+      &:hover
+        background-color: #da190b

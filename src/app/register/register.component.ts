@@ -65,7 +65,6 @@ export class RegisterComponent implements OnInit {
       this.authService.registerUser(registerData.name, registerData.email, registerData.password)
       .subscribe({
         next: (response: any) => {
-          console.log(response);
           // if errorMessage is present, display it, delete the success message and delete the cookie
           if (response.errorMessage) {
             // throw an error using custom error class, this is to prevent unwanted errors from being thrown

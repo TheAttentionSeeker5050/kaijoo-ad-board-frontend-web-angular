@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../templates/header/header.component';
 import { FooterComponent } from '../templates/footer/footer.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { LocalStorageServiceService } from '../services/LocalStorageService.service';
 import { HttpClientServiceService } from '../services/HttpClientService.service';
 import { ClassifiedAdsItem } from '../../models/ClassifiedAd.model';
@@ -38,13 +38,20 @@ export class PostByIdComponent implements OnInit {
   // This state variable is to control the visibility of the delete modal
   populateDeleteModal: boolean = false;
 
+  // Check if can go back
+  canGoBack: boolean = false;
+
   constructor(
     private httpClientService: HttpClientServiceService,
     private localStorageService: LocalStorageServiceService,
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-  ) {}
+    private location: Location,
+  ) {
+    // Check if can go back
+    this.checkCanGoBack();
+  }
 
   ngOnInit() {
     this.postId = Number(this.route.snapshot.paramMap.get('postId'));
@@ -53,9 +60,11 @@ export class PostByIdComponent implements OnInit {
       this.errorMessage = 'Could not find the post';
 
       return;
-    } else {
-      this.populateClassifiedAd();
     }
+
+    this.populateClassifiedAd();
+
+
 
   }
 
@@ -110,6 +119,18 @@ export class PostByIdComponent implements OnInit {
       error: (error) => {
         this.errorMessage = 'Failed to delete post';
         this.closeDeleteModal();
+      }
+    });
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
+  checkCanGoBack() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.canGoBack = event.urlAfterRedirects !== undefined;
       }
     });
   }

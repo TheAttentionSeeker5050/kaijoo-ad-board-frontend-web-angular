@@ -43,7 +43,6 @@ export class ProfileComponent implements OnInit {
         this.userData.email = response.email;
       },
       error: (error: any) => {
-        // console.log("There was an error: ", error);
         if (error.status == 401 || error.status == 403) {
 
           this.errorMessage = "You are not authorized to view this page. Will redirect in in 3 seconds ...";

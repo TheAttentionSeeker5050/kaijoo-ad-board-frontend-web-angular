@@ -62,11 +62,9 @@ export class LoginComponent implements OnInit {
             throw new CustomHttpResponseError(response.errorMessage, 200);
           }
 
-          // Set cookie
-          document.cookie = `token=${response.authToken};`;
-
           // Set local storage
           this.localStorageService.set('token', response.authToken);
+          this.localStorageService.set('expirationDate', response.expirationDate);
 
         },
         error: (error) => {
@@ -82,11 +80,9 @@ export class LoginComponent implements OnInit {
           // delete the success message
           this.successMessage = '';
 
-          // delete the cookie
-          document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-
           // delete the local storage
           this.localStorageService.remove('token');
+          this.localStorageService.remove('expirationDate');
         },
         complete: () => {
           this.successMessage = 'Login successful!';

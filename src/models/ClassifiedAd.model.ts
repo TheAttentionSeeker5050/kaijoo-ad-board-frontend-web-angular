@@ -23,3 +23,20 @@ export interface ClassifiedAdsItem {
   socialLinks: SocialLinkRelation[];
   conversations: ConversationRelation[];
 };
+
+export interface ClassifiedAdForm {
+  title: string;
+  description: string;
+  address: string;
+  thumbnail: string;
+  phone: string;
+  price: number;
+  email: string;
+  tags: TagRelation[];
+  subCategory: SubCategoryRelation;
+  category: CategoryRelation;
+  owner: OwnerRelation;
+  mediaItems: MediaItemRelation[];
+  socialLinks: SocialLinkRelation[];
+  conversations: ConversationRelation[];
+};
