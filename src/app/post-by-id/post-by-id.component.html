@@ -9,13 +9,11 @@
 }
 
 
-<div id="ad-item">
-  @if (true) {
-    <div class="buttons-section">
-      <a class="edit-button" [routerLink]="['/edit', adPost.id]">Edit</a>
-      <a class="delete-button" [routerLink]="['/delete', adPost.id]">Delete</a>
-    </div>
-  }
+<div id="ad-item" *ngIf="this.postId">
+  <div class="buttons-section" *ngIf="isOwner">
+    <a class="edit-button" [routerLink]="'/posts/by-id/'+adPost.id+'/edit'">Edit</a>
+    <button class="delete-button" (click)="openDeleteModal()">Delete</button>
+  </div>
 
   <img src="{{adPost.thumbnail}}" alt="{{adPost.title}}">
 
@@ -29,3 +27,10 @@
   <p class="ad-email"><strong>Email:</strong> {{adPost.email}}</p>
   <p class="ad-owner"><strong>Owner:</strong> {{adPost.owner.name}}</p>
 </div>
+
+<!-- Delete Confirmation Modal -->
+<modal-delete-post
+  [isVisible]="populateDeleteModal"
+  (confirm)="confirmDelete()"
+  (cancel)="closeDeleteModal()">
+</modal-delete-post>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../templates/header/header.component';
 import { FooterComponent } from '../templates/footer/footer.component';
 import { CommonModule } from '@angular/common';
@@ -8,13 +8,14 @@ import { HttpClientServiceService } from '../services/HttpClientService.service'
 import { ClassifiedAdsItem } from '../../models/ClassifiedAd.model';
 import { AuthService } from '../services/AuthService.service';
 import e from 'express';
+import { ModalDeletePostComponent } from '../templates/modal-delete-post/modal-delete-post.component';
 
 @Component({
   selector: 'app-post-by-id',
   templateUrl: './post-by-id.component.html',
   styleUrls: ['./post-by-id.component.sass'],
   standalone: true,
-  imports: [RouterOutlet, RouterLink, HeaderComponent, FooterComponent, CommonModule],
+  imports: [RouterOutlet, RouterLink, HeaderComponent, FooterComponent, CommonModule, ModalDeletePostComponent],
   providers: [LocalStorageServiceService, HttpClientServiceService]
 })
 export class PostByIdComponent implements OnInit {
@@ -22,36 +23,94 @@ export class PostByIdComponent implements OnInit {
 
   errorMessage: string = '';
 
+  // These state variables are to verify if the user is the owner of the post
+  userId: number | null = null;
+  isOwner: boolean = false;
+
+  // The token is stored in the local storage
+  token: string = '';
+
+  postId: number | null = null; // Post ID from the route
+
   // This is a empty object that will be populated with the data from the API
   adPost: ClassifiedAdsItem = <ClassifiedAdsItem>{};
+
+  // This state variable is to control the visibility of the delete modal
+  populateDeleteModal: boolean = false;
 
   constructor(
     private httpClientService: HttpClientServiceService,
     private localStorageService: LocalStorageServiceService,
     private authService: AuthService,
+    private route: ActivatedRoute,
     private router: Router,
   ) {}
 
   ngOnInit() {
-    this.title = 'Post by title';
-    this.populateClassifiedAd();
+    this.postId = Number(this.route.snapshot.paramMap.get('postId'));
+
+    if (!this.postId) {
+      this.errorMessage = 'Could not find the post';
+
+      return;
+    } else {
+      this.populateClassifiedAd();
+    }
 
   }
 
   populateClassifiedAd() {
-    this.httpClientService.get("posts/by-id/1")
+    this.httpClientService.get(`posts/by-id/${this.postId}`)
       .subscribe({
         next: (response: any) => {
           this.adPost = response.data;
+          this.title = `Classified: ${this.adPost.title}`;
         },
         error: (error) => {
           this.errorMessage = error.message;
         },
         complete: () => {
-          // console.log('complete');
+          this.getCurrentUser();
         }
       });
   }
 
-  deletePost() {}
+  getCurrentUser() {
+    this.authService.viewProfile().subscribe({
+      next: (response: any) => {
+        this.userId = response.id;
+      },
+      error: (error) => {
+        this.userId = null;
+      },
+      complete: () => {
+        this.checkIfOwner(); // Check ownership after setting userId
+      }
+    });
+  }
+
+  checkIfOwner() {
+    this.isOwner = this.userId === this.adPost.owner?.id;
+  }
+
+  openDeleteModal(){
+    this.populateDeleteModal = true;
+  }
+
+  closeDeleteModal() {
+    this.populateDeleteModal = false;
+  }
+
+  confirmDelete() {
+    this.token = this.localStorageService.get('token') || '';
+    this.httpClientService.delete(`posts/by-id/${this.adPost.id}`, this.token).subscribe({
+      next: () => {
+        this.router.navigate(['/']);
+      },
+      error: (error) => {
+        this.errorMessage = 'Failed to delete post';
+        this.closeDeleteModal();
+      }
+    });
+  }
 }
