@@ -7,6 +7,9 @@ import { LocalStorageServiceService } from '../services/LocalStorageService.serv
 import { HttpClientServiceService } from '../services/HttpClientService.service';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 
+// Import environment variables
+import { environment } from '../../environments/environment';
+
 
 @Component({
   selector: 'app-add-or-edit-post',
@@ -21,7 +24,7 @@ export class AddOrEditPostComponent implements OnInit {
 
   errorMessage: string = '';
 
-  apiKey: string = '';
+  tinyMCEApiKey: string = environment.tinyMCEAPIKey;
 
   canGoBack: boolean = false;
 
