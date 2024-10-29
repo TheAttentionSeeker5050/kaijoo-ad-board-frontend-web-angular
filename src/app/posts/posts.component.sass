@@ -1,13 +1,9 @@
-h2
-  padding: 0
-  margin: 1rem 1rem 0.5rem 1rem
-
 #ads-listings-horizontal
   display: flex
   flex-direction: column
   justify-content: space-between
   gap: 1rem
-  padding: 1rem
+  // padding: 1rem
 
   .ad
     display: flex
@@ -28,7 +24,7 @@ h2
         font-weight: bold
         color: #0c630c
 
-      .ad-location
+      .ad-address
         font-size: 0.9rem
         color: #666
 
@@ -40,3 +36,32 @@ h2
       img
         max-width: 200px
         height: auto
+
+
+  // If mobile
+  @media screen and (max-width: 768px)
+    #ads-listings-horizontal
+      flex-direction: column
+
+    .ad
+      flex-direction: column
+      gap: 0.5rem
+      padding: 1rem
+
+      .ad-meta
+        h3
+          font-size: 1.2rem
+
+        p
+          font-size: 1rem
+
+        .ad-price
+          font-size: 1rem
+
+        .ad-address
+          font-size: 0.8rem
+
+      .ad-thumb
+        img
+          max-width: 100%
+          height: auto

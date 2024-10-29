@@ -6,7 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-logout',
   templateUrl: './logout.component.html',
-  styleUrls: ['./logout.component.css'],
+  styleUrls: ['./logout.component.sass'],
   standalone: true,
   imports: [CommonModule, RouterLink],
   providers: [LocalStorageServiceService]

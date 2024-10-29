@@ -17,7 +17,7 @@ export class HttpClientServiceService {
   };
 
   // get with token
-  getWithToken(url: string, token: string) {
+  getWithToken(url: string, token: string | null) {
     return this.httpClient.get(`${this.baseUrl}/${url}`, {
       headers: {
         'Authorization': `Bearer ${token}`

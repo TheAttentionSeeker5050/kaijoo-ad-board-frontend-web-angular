@@ -1,0 +1,31 @@
+<title>{{title}}</title>
+
+<h2 class="page-title">{{title}}</h2>
+
+@if (errorMessage) {
+  <p class="errorMsgCard">
+    {{ errorMessage }}
+  </p>
+}
+
+
+<div id="ad-item">
+  @if (true) {
+    <div class="buttons-section">
+      <a class="edit-button" [routerLink]="['/edit', adPost.id]">Edit</a>
+      <a class="delete-button" [routerLink]="['/delete', adPost.id]">Delete</a>
+    </div>
+  }
+
+  <img src="{{adPost.thumbnail}}" alt="{{adPost.title}}">
+
+  <h3 class="ad-title">{{adPost.title}}</h3>
+  <!-- this parses the html tags inside the description (or the absence of them and displays them accordingly) -->
+  <div class="ad-description" [innerHTML]="adPost.description"></div>
+
+  <p class="ad-price"><strong>Price:</strong> ${{adPost.price}}</p>
+  <p class="ad-address"><strong>Address:</strong> {{adPost.address}}</p>
+  <p class="ad-phone"><strong>Phone:</strong> {{adPost.phone}}</p>
+  <p class="ad-email"><strong>Email:</strong> {{adPost.email}}</p>
+  <p class="ad-owner"><strong>Owner:</strong> {{adPost.owner.name}}</p>
+</div>
