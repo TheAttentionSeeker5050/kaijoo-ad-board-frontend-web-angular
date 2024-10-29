@@ -24,7 +24,6 @@
     width: 100%
 
     textarea, editor
-      min-height: 250px
       resize: none
 
   #btn-group
@@ -53,3 +52,34 @@
       background-color: #f44336
       &:hover
         background-color: #da190b
+
+.buttons-section
+  width: 100%
+
+
+  .go-back-button
+    background-color: #008CBA
+    border-color: #008CBA
+    margin: 0.5rem 0
+    padding: 0.5rem
+    border: 1px solid
+    border-radius: 5px
+    color: white
+    text-decoration: none
+    cursor: pointer
+
+
+    &:hover
+      background-color: #007a9b
+
+// media query for mobile
+@media (max-width: 768px)
+  #add-or-edit-post-form
+    flex-direction: column
+    gap: 15px
+
+    .buttons-section
+      margin: 10px 0
+
+    .form-group
+      width: 100%

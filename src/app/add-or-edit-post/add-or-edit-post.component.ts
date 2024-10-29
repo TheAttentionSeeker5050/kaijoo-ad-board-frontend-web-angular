@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ClassifiedAdForm, ClassifiedAdsItem } from '../../models/ClassifiedAd.model';
 import { EditorComponent } from '@tinymce/tinymce-angular';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { LocalStorageServiceService } from '../services/LocalStorageService.service';
+import { HttpClientServiceService } from '../services/HttpClientService.service';
+import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 
 
 @Component({
@@ -10,36 +13,58 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angul
   templateUrl: './add-or-edit-post.component.html',
   styleUrls: ['./add-or-edit-post.component.sass'],
   standalone: true,
-  imports: [EditorComponent, CommonModule, ReactiveFormsModule]
+  imports: [RouterOutlet, RouterLink, EditorComponent, CommonModule, ReactiveFormsModule],
+  providers: [LocalStorageServiceService, HttpClientServiceService]
 })
 export class AddOrEditPostComponent implements OnInit {
   title: string = '';
 
   errorMessage: string = '';
 
-  apiKey: string = 's2itx8rc1ekq634gurfmd8dvpxf3nil7a55iswysiuzgnqw6';
+  apiKey: string = '';
 
   canGoBack: boolean = false;
 
   addOrEditPostForm!: FormGroup;
 
+  token: string | null = null;
+
   init: EditorComponent['init'] = {
     plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
     toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-    height: 250,
+    height: 350,
+    resize: false,
   };
+
+  postId: number | null = null; // Post ID from the route
+
 
 
   constructor(
     private formBuilder: FormBuilder,
-  ) { }
+    private localStorageService: LocalStorageServiceService,
+    private httpClientService: HttpClientServiceService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location,
+
+  ) {
+    this.checkCanGoBack();
+  }
 
   ngOnInit() {
+    this.postId = Number(this.route.snapshot.paramMap.get('postId'));
+
+    if (!this.postId) {
+      return;
+    }
+
     this.initializeForm();
   }
 
   initializeForm() {
     this.title = 'Add New Classified Ad';
+
     this.addOrEditPostForm = this.formBuilder.group({
       title: [''],
       description: [''],
@@ -49,12 +74,22 @@ export class AddOrEditPostComponent implements OnInit {
       price: [0],
       email: [''],
     });
+
+    // Get the token from the local storage
+    this.token = this.localStorageService.get("token");
   }
 
-  goBack() {}
+  goBack(): void {
+    this.location.back();
+  }
 
   submitForm() {
-    // console.log("the form was submitted:", this.addOrEditPostForm.value);
+    // if no token, redirect to login
+    if (!this.token) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
     if (this.addOrEditPostForm.valid) {
       const formData: ClassifiedAdsItem = <ClassifiedAdsItem>{
         title: this.addOrEditPostForm.value.title,
@@ -66,8 +101,16 @@ export class AddOrEditPostComponent implements OnInit {
         email: this.addOrEditPostForm.value.email,
       };
 
-      console.log("the form was submitted:", formData);
+      // send the form data to the server
     }
+  }
+
+  checkCanGoBack() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.canGoBack = event.urlAfterRedirects !== undefined;
+      }
+    });
   }
 
 }

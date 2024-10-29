@@ -63,9 +63,6 @@ export class PostByIdComponent implements OnInit {
     }
 
     this.populateClassifiedAd();
-
-
-
   }
 
   populateClassifiedAd() {
