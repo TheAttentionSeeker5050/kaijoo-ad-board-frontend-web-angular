@@ -19,13 +19,24 @@
     Your classified ads
   </h3>
 
+  <!-- a new post btn -->
+  <div id="new-button-section">
+    <a routerLink="/post" class="btn btn-primary" id="new-ad-button">
+      Post a new ad
+    </a>
+  </div>
+
   <p *ngIf="latestPosts.length === 0">
     You haven't posted any classified ads yet.
   </p>
 
-  <ul *ngIf="latestPosts.length > 0">
-    <li *ngFor="let post of latestPosts">
-      {{ post }}
-    </li>
-  </ul>
+  @if (latestPosts.length > 0) {
+    <div id="my-posts-list">
+      @for(ad of latestPosts; track ad.id) {
+        <post-list-item
+          [ad]="ad"
+        ></post-list-item>
+      }
+    </div>
+  }
 }

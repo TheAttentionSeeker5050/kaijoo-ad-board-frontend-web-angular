@@ -10,25 +10,8 @@
 <!-- This is the container of the ads listing, have something like a horizontal list with the following dom parts: title, content (first 100 characters), thumbnail, price, location -->
 <div id="ads-listings-horizontal">
   @for(ad of adsList; track ad.id) {
-    <div class="ad" id="{{ad.id}}">
-      <div class="ad-thumb">
-        <a routerLink="/posts/{{ad.id}}">
-          <img src="{{ad.thumbnail}}" alt="{{ad.title}}">
-        </a>
-      </div>
-      <div class="ad-meta">
-        <a routerLink="/posts/by-id/{{ad.id}}">
-          <h3 class="ad-title">{{ad.title}}</h3>
-        </a>
-
-        <div class="ad-description" [innerHTML]="getTruncatedDescription(ad.description)"></div>
-
-        <p class="ad-price">${{ad.price}}</p>
-        <p class="ad-address">{{ad.address}}</p>
-        <!-- <p class="ad-phone">{{ad.phone}}</p>
-        <p class="ad-email">{{ad.email}}</p>
-        <p class="ad-owner">{{ad.owner.name}}</p> -->
-      </div>
-    </div>
+    <post-list-item
+      [ad]="ad"
+    ></post-list-item>
   }
 </div>

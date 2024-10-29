@@ -8,6 +8,7 @@ import { HttpClientServiceService } from '../services/HttpClientService.service'
 import { ClassifiedAdsItem } from '../../models/ClassifiedAd.model';
 
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'; // Sanitize the HTML content
+import { PostListItemComponent } from '../templates/post-list-item/post-list-item.component';
 
 // Make a data structure for the posts items
 
@@ -17,7 +18,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser'; // Sanitize 
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.sass'],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink, AsyncPipe],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, AsyncPipe, PostListItemComponent],
   providers: [LocalStorageServiceService, HttpClientServiceService]
 })
 export class PostsComponent implements OnInit {
