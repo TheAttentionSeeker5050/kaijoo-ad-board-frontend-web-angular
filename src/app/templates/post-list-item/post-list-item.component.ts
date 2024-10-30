@@ -16,6 +16,9 @@ import { TextFormattingServiceService } from '../../services/TextFormattingServi
 export class PostListItemComponent implements OnInit {
   @Input() ad!: ClassifiedAdsItem;
 
+  // get the getPostThumbnail
+  @Input() thumbnailURL!: string;
+
   constructor(
     private textFormattingService: TextFormattingServiceService
   ) { }

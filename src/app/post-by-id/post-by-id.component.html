@@ -17,7 +17,7 @@
     <button class="delete-button" (click)="openDeleteModal()">Delete</button>
   </div>
 
-  <img src="{{adPost.thumbnail}}" alt="{{adPost.title}}">
+  <img src="{{getPostThumbnailUrl()}}" alt="{{adPost.title}}">
 
   <h3 class="ad-title">{{adPost.title}}</h3>
   <!-- this parses the html tags inside the description (or the absence of them and displays them accordingly) -->

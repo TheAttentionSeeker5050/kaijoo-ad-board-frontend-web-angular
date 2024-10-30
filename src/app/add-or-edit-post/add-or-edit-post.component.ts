@@ -31,7 +31,7 @@ export class AddOrEditPostComponent implements OnInit {
 
   addOrEditPostForm!: FormGroup;
 
-  token: string | null = null;
+  token: string = '';
 
   init: EditorComponent['init'] = {
     plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
@@ -42,6 +42,8 @@ export class AddOrEditPostComponent implements OnInit {
 
   postId: number | null = null; // Post ID from the route
 
+  // To upload the thumbnail
+  selectedFile: File | null = null;
 
 
   constructor(
@@ -74,7 +76,7 @@ export class AddOrEditPostComponent implements OnInit {
     });
 
     // Get the token from the local storage
-    this.token = this.localStorageService.get("token");
+    this.token = this.localStorageService.get("token") || '';
 
     // call the populate data if the post id is not null
     if (this.postId) {
@@ -110,10 +112,9 @@ export class AddOrEditPostComponent implements OnInit {
           });
         },
         error: (error) => {
-          console.log("Error", error);
           // Return the error message depending on the status code
           if (error.status == 401 || error.status == 403) {
-            this.errorMessage = 'Invalid email or password';
+            this.errorMessage = 'Could not get the post. Please try again.';
           } else if (error instanceof CustomHttpResponseError) {
             this.errorMessage = error.message;
           } else {
@@ -141,7 +142,6 @@ export class AddOrEditPostComponent implements OnInit {
         title: this.addOrEditPostForm.value.title,
         description: this.addOrEditPostForm.value.description,
         address: this.addOrEditPostForm.value.address,
-        // thumbnail: this.addOrEditPostForm.value.thumbnail,
         phone: this.addOrEditPostForm.value.phone,
         price: this.addOrEditPostForm.value.price,
         email: this.addOrEditPostForm.value.email,
@@ -149,7 +149,9 @@ export class AddOrEditPostComponent implements OnInit {
 
       // send the form data to the server
       // Make an http POST request to the server
-      const request = this.postId ? this.httpClientService.put(`posts/by-id/${this.postId}`, formData, this.token) : this.httpClientService.post("posts", formData, this.token)
+      const request = this.postId
+        ? this.httpClientService.put(`posts/by-id/${this.postId}`, formData, this.token)
+        : this.httpClientService.post("posts", formData, this.token)
         request.subscribe({
           next: (response: any) => {
             // if errorMessage is present, display it
@@ -159,18 +161,26 @@ export class AddOrEditPostComponent implements OnInit {
               throw new CustomHttpResponseError(response.errorMessage, 200);
             }
 
-            // redirect to home
-            this.router.navigate(['/']);
+            // If a file was selected, send the multipart request to upload the thumbnail
+          if (this.selectedFile && this.postId) {
+            const fileData = new FormData();
+            fileData.append('thumbnail', this.selectedFile);
+
+            this.httpClientService.postMultipart(`posts/by-id/${this.postId}/edit-thumbnail`, fileData, this.token)
+              .subscribe({
+                next: () => {
+                  this.router.navigate(['/posts']);
+                },
+                error: (error) => {
+                  this.handleError(error);
+                }
+              });
+          } else {
+            this.router.navigate(['/posts']);
+          }
           },
           error: (error) => {
-            // Return the error message depending on the status code
-            if (error.status == 401 || error.status == 403) {
-              this.errorMessage = 'Invalid email or password';
-            } else if (error instanceof CustomHttpResponseError) {
-              this.errorMessage = error.message;
-            } else {
-              this.errorMessage = "Something went wrong. We were unable to add the post.";
-            }
+            this.handleError(error);
           },
           complete: () => {
             // Redirect to the browse ads page /posts
@@ -187,4 +197,23 @@ export class AddOrEditPostComponent implements OnInit {
       }
     });
   }
+
+  // Capture the file from the input
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
+  private handleError(error: any) {
+    if (error.status === 401 || error.status === 403) {
+      this.errorMessage = 'You are not authorized to add or edit this post. Please login and try again.';
+    } else if (error instanceof CustomHttpResponseError) {
+      this.errorMessage = error.message;
+    } else {
+      this.errorMessage = 'Something went wrong. We were unable to add the post.';
+    }
+  }
+
 }

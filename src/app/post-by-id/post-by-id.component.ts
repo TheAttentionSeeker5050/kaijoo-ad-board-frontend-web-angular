@@ -8,6 +8,7 @@ import { HttpClientServiceService } from '../services/HttpClientService.service'
 import { ClassifiedAdsItem } from '../../models/ClassifiedAd.model';
 import { AuthService } from '../services/AuthService.service';
 import { ModalDeletePostComponent } from '../templates/modal-delete-post/modal-delete-post.component';
+import { ImageServiceService } from '../services/ImageService.service';
 
 @Component({
   selector: 'app-post-by-id',
@@ -47,6 +48,7 @@ export class PostByIdComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
+    private imageService: ImageServiceService,
   ) {
     // Check if can go back
     this.checkCanGoBack();
@@ -129,5 +131,10 @@ export class PostByIdComponent implements OnInit {
         this.canGoBack = event.urlAfterRedirects !== undefined;
       }
     });
+  }
+
+  getPostThumbnailUrl() {
+    console.log("Thumbnail url: ", this.imageService.getPostThumbnailUrl(this.adPost.thumbnail));
+    return this.imageService.getPostThumbnailUrl(this.adPost.thumbnail);
   }
 }

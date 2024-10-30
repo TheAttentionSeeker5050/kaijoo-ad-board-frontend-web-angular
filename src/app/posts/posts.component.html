@@ -12,6 +12,7 @@
   @for(ad of adsList; track ad.id) {
     <post-list-item
       [ad]="ad"
+      [thumbnailURL]="getPostThumbnail(ad.thumbnail)"
     ></post-list-item>
   }
 </div>

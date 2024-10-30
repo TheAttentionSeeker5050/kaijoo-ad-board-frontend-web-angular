@@ -31,8 +31,7 @@ export class LocalStorageServiceService {
     if (expiration === 0) {
       return;
     }
-    console.log("expiration", expiration);
-    console.log("Date.now()", Date.now());
+
     // if expired parameter is lower than now, remove the key
     if (expiration < Date.now()) {
       this.remove(key);

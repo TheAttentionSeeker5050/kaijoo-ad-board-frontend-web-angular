@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpClientServiceService {
 
-  baseUrl = 'http://localhost:8080';
+  baseUrl = environment.baseAPIUrl;
 
 
   constructor(private httpClient: HttpClient) { }
@@ -35,6 +36,15 @@ export class HttpClientServiceService {
     });
   };
 
+  postMultipart(url: string, formData: FormData, token: string) {
+    return this.httpClient.post(`${this.baseUrl}/${url}`, formData, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        // Let the browser set the Content-Type header to multipart/form-data for FormData requests
+      }
+    });
+  }
+
   put(url: string, data: any, token: string) {
     return this.httpClient.put(`${this.baseUrl}/${url}`, data, {
       headers: {
@@ -50,5 +60,6 @@ export class HttpClientServiceService {
       }
     });
   };
+
 
 }

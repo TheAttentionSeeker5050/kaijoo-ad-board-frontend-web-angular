@@ -7,6 +7,7 @@ import { HttpClientServiceService } from '../services/HttpClientService.service'
 import { ClassifiedAdsItem } from '../../models/ClassifiedAd.model';
 
 import { PostListItemComponent } from '../templates/post-list-item/post-list-item.component';
+import { ImageServiceService } from '../services/ImageService.service';
 
 // Make a data structure for the posts items
 
@@ -23,6 +24,7 @@ export class PostsComponent implements OnInit {
 
   constructor(
     private httpClientService: HttpClientServiceService,
+    private imageService: ImageServiceService,
   ) { }
 
   adsList : ClassifiedAdsItem[] = [];
@@ -46,6 +48,10 @@ export class PostsComponent implements OnInit {
         complete: () => {
         }
       })
+  }
+
+  getPostThumbnail(fileName: string) {
+    return this.imageService.getPostThumbnailUrl(fileName);
   }
 
 }
