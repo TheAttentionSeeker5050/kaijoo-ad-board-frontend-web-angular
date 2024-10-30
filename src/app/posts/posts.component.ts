@@ -2,12 +2,12 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { LocalStorageServiceService } from '../services/LocalStorageService.service';
-import { HttpClientServiceService } from '../services/HttpClientService.service';
+import { LocalStorageService } from '../services/LocalStorage.service';
+import { HttpClientService } from '../services/HttpClient.service';
 import { ClassifiedAdsItem } from '../../models/ClassifiedAd.model';
 
 import { PostListItemComponent } from '../templates/post-list-item/post-list-item.component';
-import { ImageServiceService } from '../services/ImageService.service';
+import { ImageService } from '../services/Image.service';
 
 // Make a data structure for the posts items
 
@@ -18,13 +18,13 @@ import { ImageServiceService } from '../services/ImageService.service';
   styleUrls: ['./posts.component.sass'],
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, RouterLink, AsyncPipe, PostListItemComponent],
-  providers: [LocalStorageServiceService, HttpClientServiceService]
+  providers: [LocalStorageService, HttpClientService]
 })
 export class PostsComponent implements OnInit {
 
   constructor(
-    private httpClientService: HttpClientServiceService,
-    private imageService: ImageServiceService,
+    private httpClientService: HttpClientService,
+    private imageService: ImageService,
   ) { }
 
   adsList : ClassifiedAdsItem[] = [];

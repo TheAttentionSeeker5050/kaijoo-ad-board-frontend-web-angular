@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class HttpClientServiceService {
+export class HttpClientService {
 
   baseUrl = environment.baseAPIUrl;
 

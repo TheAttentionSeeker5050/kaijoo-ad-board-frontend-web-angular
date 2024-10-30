@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { LocalStorageServiceService } from '../../services/LocalStorageService.service';
+import { LocalStorageService } from '../../services/LocalStorage.service';
 
 @Component({
   selector: 'app-header',
@@ -10,11 +10,11 @@ import { LocalStorageServiceService } from '../../services/LocalStorageService.s
   standalone: true,
   styleUrls: ['./header.component.sass'],
   imports: [ReactiveFormsModule, CommonModule, RouterLink],
-  providers: [LocalStorageServiceService]
+  providers: [LocalStorageService]
 })
 export class HeaderComponent {
 
-  constructor(private localStorageService: LocalStorageServiceService) {
+  constructor(private localStorageService: LocalStorageService) {
     this.localStorageService.clearIfExpired();
   }
 

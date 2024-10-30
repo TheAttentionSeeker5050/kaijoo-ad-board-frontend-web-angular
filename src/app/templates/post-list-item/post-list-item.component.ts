@@ -3,7 +3,7 @@ import { SafeHtml } from '@angular/platform-browser';
 import { ClassifiedAdsItem } from '../../../models/ClassifiedAd.model';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { TextFormattingServiceService } from '../../services/TextFormattingService.service';
+import { TextFormattingService } from '../../services/TextFormatting.service';
 
 @Component({
   selector: 'post-list-item',
@@ -20,7 +20,7 @@ export class PostListItemComponent implements OnInit {
   @Input() thumbnailURL!: string;
 
   constructor(
-    private textFormattingService: TextFormattingServiceService
+    private textFormattingService: TextFormattingService
   ) { }
 
   ngOnInit() {

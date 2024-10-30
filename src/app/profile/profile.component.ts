@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AuthService } from '../services/AuthService.service';
+import { AuthService } from '../services/Auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CustomHttpResponseError } from '../../models/CustomHttpResponseError.model';
 import { ClassifiedAdsItem } from '../../models/ClassifiedAd.model';
-import { HttpClientServiceService } from '../services/HttpClientService.service';
-import { LocalStorageServiceService } from '../services/LocalStorageService.service';
+import { HttpClientService } from '../services/HttpClient.service';
+import { LocalStorageService } from '../services/LocalStorage.service';
 import { PostListItemComponent } from '../templates/post-list-item/post-list-item.component';
 
 @Component({
@@ -38,8 +38,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private httpClientService: HttpClientServiceService,
-    private localStorageService: LocalStorageServiceService,
+    private httpClientService: HttpClientService,
+    private localStorageService: LocalStorageService,
   ) { }
 
   ngOnInit() {

@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { TextFormattingServiceService } from './TextFormattingService.service';
+import { TextFormattingService } from './TextFormatting.service';
 
 describe('Service: TextFormattingService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [TextFormattingServiceService]
+      providers: [TextFormattingService]
     });
   });
 
-  it('should ...', inject([TextFormattingServiceService], (service: TextFormattingServiceService) => {
+  it('should ...', inject([TextFormattingService], (service: TextFormattingService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -3,13 +3,14 @@ import { ClassifiedAdForm, ClassifiedAdsItem } from '../../models/ClassifiedAd.m
 import { EditorComponent } from '@tinymce/tinymce-angular';
 import { CommonModule, Location } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { LocalStorageServiceService } from '../services/LocalStorageService.service';
-import { HttpClientServiceService } from '../services/HttpClientService.service';
+import { LocalStorageService } from '../services/LocalStorage.service';
+import { HttpClientService } from '../services/HttpClient.service';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 
 // Import environment variables
 import { environment } from '../../environments/environment';
 import { CustomHttpResponseError } from '../../models/CustomHttpResponseError.model';
+import { ImageService } from '../services/Image.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { CustomHttpResponseError } from '../../models/CustomHttpResponseError.mo
   styleUrls: ['./add-or-edit-post.component.sass'],
   standalone: true,
   imports: [RouterOutlet, RouterLink, EditorComponent, CommonModule, ReactiveFormsModule],
-  providers: [LocalStorageServiceService, HttpClientServiceService]
+  providers: [LocalStorageService, HttpClientService, ImageService]
 })
 export class AddOrEditPostComponent implements OnInit {
   title: string = '';
@@ -48,8 +49,8 @@ export class AddOrEditPostComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private localStorageService: LocalStorageServiceService,
-    private httpClientService: HttpClientServiceService,
+    private localStorageService: LocalStorageService,
+    private httpClientService: HttpClientService,
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,

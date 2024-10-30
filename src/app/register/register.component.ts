@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { RegisterModel } from '../../models/Register.model';
-import { AuthService } from '../services/AuthService.service';
+import { AuthService } from '../services/Auth.service';
 import { CustomHttpResponseError } from '../../models/CustomHttpResponseError.model';
-import { LocalStorageServiceService } from '../services/LocalStorageService.service';
+import { LocalStorageService } from '../services/LocalStorage.service';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +13,7 @@ import { LocalStorageServiceService } from '../services/LocalStorageService.serv
   styleUrls: ['./register.component.sass', '../global/styles/forms.sass'],
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, RouterLink, AsyncPipe],
-  providers: [LocalStorageServiceService]
+  providers: [LocalStorageService]
 })
 export class RegisterComponent implements OnInit {
 
@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private localStorageService: LocalStorageServiceService
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {

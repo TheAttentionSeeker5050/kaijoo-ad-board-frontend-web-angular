@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalStorageServiceService } from '../services/LocalStorageService.service';
+import { LocalStorageService } from '../services/LocalStorage.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
@@ -9,11 +9,11 @@ import { Router, RouterLink } from '@angular/router';
   styleUrls: ['./logout.component.sass'],
   standalone: true,
   imports: [CommonModule, RouterLink],
-  providers: [LocalStorageServiceService]
+  providers: [LocalStorageService]
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(private localStorageService: LocalStorageServiceService, private router: Router) { }
+  constructor(private localStorageService: LocalStorageService, private router: Router) { }
 
   ngOnInit() {
     // remove the token from the local storage

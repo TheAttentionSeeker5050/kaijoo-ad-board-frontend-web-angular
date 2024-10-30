@@ -4,7 +4,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Injectable({
   providedIn: 'root'
 })
-export class TextFormattingServiceService {
+export class TextFormattingService {
 
 constructor(
   private sanitizer: DomSanitizer  // Inject DomSanitizer

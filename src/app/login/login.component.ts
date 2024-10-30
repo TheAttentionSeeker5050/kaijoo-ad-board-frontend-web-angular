@@ -3,9 +3,9 @@ import { LoginModel } from '../../models/Login.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../services/AuthService.service';
+import { AuthService } from '../services/Auth.service';
 import { CustomHttpResponseError } from '../../models/CustomHttpResponseError.model';
-import { LocalStorageServiceService } from '../services/LocalStorageService.service';
+import { LocalStorageService } from '../services/LocalStorage.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ import { LocalStorageServiceService } from '../services/LocalStorageService.serv
   styleUrls: ['./login.component.sass', '../global/styles/forms.sass'],
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, RouterLink, AsyncPipe],
-  providers: [LocalStorageServiceService]
+  providers: [LocalStorageService]
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private localStorageService: LocalStorageServiceService
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {

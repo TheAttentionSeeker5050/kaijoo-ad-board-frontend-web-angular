@@ -3,12 +3,12 @@ import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from 
 import { HeaderComponent } from '../templates/header/header.component';
 import { FooterComponent } from '../templates/footer/footer.component';
 import { CommonModule, Location } from '@angular/common';
-import { LocalStorageServiceService } from '../services/LocalStorageService.service';
-import { HttpClientServiceService } from '../services/HttpClientService.service';
+import { LocalStorageService } from '../services/LocalStorage.service';
+import { HttpClientService } from '../services/HttpClient.service';
 import { ClassifiedAdsItem } from '../../models/ClassifiedAd.model';
-import { AuthService } from '../services/AuthService.service';
+import { AuthService } from '../services/Auth.service';
 import { ModalDeletePostComponent } from '../templates/modal-delete-post/modal-delete-post.component';
-import { ImageServiceService } from '../services/ImageService.service';
+import { ImageService } from '../services/Image.service';
 
 @Component({
   selector: 'app-post-by-id',
@@ -16,7 +16,7 @@ import { ImageServiceService } from '../services/ImageService.service';
   styleUrls: ['./post-by-id.component.sass'],
   standalone: true,
   imports: [RouterOutlet, RouterLink, HeaderComponent, FooterComponent, CommonModule, ModalDeletePostComponent],
-  providers: [LocalStorageServiceService, HttpClientServiceService]
+  providers: [LocalStorageService, HttpClientService]
 })
 export class PostByIdComponent implements OnInit {
   title: string = '';
@@ -42,13 +42,13 @@ export class PostByIdComponent implements OnInit {
   canGoBack: boolean = false;
 
   constructor(
-    private httpClientService: HttpClientServiceService,
-    private localStorageService: LocalStorageServiceService,
+    private httpClientService: HttpClientService,
+    private localStorageService: LocalStorageService,
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private imageService: ImageServiceService,
+    private imageService: ImageService,
   ) {
     // Check if can go back
     this.checkCanGoBack();
