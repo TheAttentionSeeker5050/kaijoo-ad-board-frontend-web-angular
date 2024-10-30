@@ -11,6 +11,7 @@ import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from 
 import { environment } from '../../environments/environment';
 import { CustomHttpResponseError } from '../../models/CustomHttpResponseError.model';
 import { ImageService } from '../services/Image.service';
+import { CustomNavigationService } from '../services/CustomNavigation.service';
 
 
 @Component({
@@ -27,8 +28,6 @@ export class AddOrEditPostComponent implements OnInit {
   errorMessage: string = '';
 
   tinyMCEApiKey: string = environment.tinyMCEAPIKey;
-
-  canGoBack: boolean = false;
 
   addOrEditPostForm!: FormGroup;
 
@@ -54,7 +53,8 @@ export class AddOrEditPostComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private customNavigationService: CustomNavigationService
 
   ) {
     this.checkCanGoBack();
@@ -193,11 +193,7 @@ export class AddOrEditPostComponent implements OnInit {
   }
 
   checkCanGoBack() {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.canGoBack = event.urlAfterRedirects !== undefined;
-      }
-    });
+    return this.customNavigationService.checkCanGoBack();
   }
 
   // Capture the file from the input

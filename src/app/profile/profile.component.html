@@ -11,6 +11,11 @@
    <a routerLink="/login">Click here to redirect immediately to the login page</a>
 } @else {
 
+  <div class="go-back-button-wrapper">
+    <!-- make a go back button using page navigation history -->
+    <a class="go-back-button" (click)="goBack()" *ngIf="checkCanGoBack()">Go Back</a>
+  </div>
+
   <p>
     Welcome, {{ userData.name }}!
   </p>
@@ -35,6 +40,7 @@
       @for(ad of latestPosts; track ad.id) {
         <post-list-item
           [ad]="ad"
+          [thumbnailURL]="getPostThumbnail(ad.thumbnail)"
         ></post-list-item>
       }
     </div>

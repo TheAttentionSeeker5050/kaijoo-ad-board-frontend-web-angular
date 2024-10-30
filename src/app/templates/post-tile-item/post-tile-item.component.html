@@ -1,0 +1,12 @@
+<div class="ad" id="{{ad.id}}">
+  <a routerLink="/posts/by-id/{{ad.id}}" class="thumbnail-anchor">
+    <img src="{{thumbnailURL}}" alt="{{ad.title}}">
+  </a>
+
+  <h3 class="ad-title"><a routerLink="/posts/by-id/{{ad.id}}">{{ad.title}}</a></h3>
+
+  <div class="tile-bottom-section">
+    <p class="ad-price">${{ad.price}}</p>
+    <p class="ad-address">{{ad.address}}</p>
+  </div>
+</div>

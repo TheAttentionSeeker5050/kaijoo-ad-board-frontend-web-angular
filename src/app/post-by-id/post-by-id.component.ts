@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../templates/header/header.component';
 import { FooterComponent } from '../templates/footer/footer.component';
 import { CommonModule, Location } from '@angular/common';
@@ -9,6 +9,7 @@ import { ClassifiedAdsItem } from '../../models/ClassifiedAd.model';
 import { AuthService } from '../services/Auth.service';
 import { ModalDeletePostComponent } from '../templates/modal-delete-post/modal-delete-post.component';
 import { ImageService } from '../services/Image.service';
+import { CustomNavigationService } from '../services/CustomNavigation.service';
 
 @Component({
   selector: 'app-post-by-id',
@@ -38,9 +39,6 @@ export class PostByIdComponent implements OnInit {
   // This state variable is to control the visibility of the delete modal
   populateDeleteModal: boolean = false;
 
-  // Check if can go back
-  canGoBack: boolean = false;
-
   constructor(
     private httpClientService: HttpClientService,
     private localStorageService: LocalStorageService,
@@ -49,6 +47,7 @@ export class PostByIdComponent implements OnInit {
     private router: Router,
     private location: Location,
     private imageService: ImageService,
+    private customNavigationService: CustomNavigationService
   ) {
     // Check if can go back
     this.checkCanGoBack();
@@ -126,15 +125,10 @@ export class PostByIdComponent implements OnInit {
   }
 
   checkCanGoBack() {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.canGoBack = event.urlAfterRedirects !== undefined;
-      }
-    });
+    return this.customNavigationService.checkCanGoBack();
   }
 
   getPostThumbnailUrl() {
-    console.log("Thumbnail url: ", this.imageService.getPostThumbnailUrl(this.adPost.thumbnail));
     return this.imageService.getPostThumbnailUrl(this.adPost.thumbnail);
   }
 }

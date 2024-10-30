@@ -1,0 +1,59 @@
+// Common button styles
+.button-base
+  margin: 0.5rem
+  padding: 0.5rem
+  border: 1px solid
+  border-radius: 5px
+  color: white
+  text-decoration: none
+  text-align: center
+  cursor: pointer
+
+// Button variants
+.go-back-button, #submit-button
+  @extend .button-base
+  background-color: #008CBA
+  border-color: #008CBA
+
+  &:hover
+    background-color: darken(#008CBA, 10%)
+
+.edit-button
+  @extend .button-base
+  background-color: #4CAF50
+  border-color: #4CAF50
+
+  &:hover
+    background-color: darken(#4CAF50, 10%)
+
+.delete-button, #cancel-button
+  @extend .button-base
+  background-color: #f44336
+  border-color: #f44336
+
+  &:hover
+    background-color: darken(#f44336, 10%)
+
+#submit-button[disabled]
+  background-color: #ccc
+  cursor: not-allowed
+
+// Wrapper styles
+.go-back-button-wrapper
+  display: flex
+  justify-content: left
+  margin-bottom: 1rem
+
+#new-button-section
+  display: flex
+  justify-content: flex-end
+  width: 100%
+
+  #new-ad-button
+    @extend .button-base
+    margin: 0.8rem 0
+    background-color: #4CAF50
+    border-color: #4CAF50
+
+    &:hover
+      background-color: darken(#4CAF50, 10%)

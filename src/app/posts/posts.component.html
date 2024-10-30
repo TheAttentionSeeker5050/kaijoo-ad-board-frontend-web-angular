@@ -6,9 +6,14 @@
   </p>
 }
 
+<div class="go-back-button-wrapper">
+  <!-- make a go back button using page navigation history -->
+  <a class="go-back-button" (click)="goBack()" *ngIf="checkCanGoBack()">Go Back</a>
+</div>
 
 <!-- This is the container of the ads listing, have something like a horizontal list with the following dom parts: title, content (first 100 characters), thumbnail, price, location -->
 <div id="ads-listings-horizontal">
+
   @for(ad of adsList; track ad.id) {
     <post-list-item
       [ad]="ad"

@@ -1,12 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../services/Auth.service';
 import { Router, RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { CustomHttpResponseError } from '../../models/CustomHttpResponseError.model';
 import { ClassifiedAdsItem } from '../../models/ClassifiedAd.model';
 import { HttpClientService } from '../services/HttpClient.service';
 import { LocalStorageService } from '../services/LocalStorage.service';
 import { PostListItemComponent } from '../templates/post-list-item/post-list-item.component';
+import { CustomNavigationService } from '../services/CustomNavigation.service';
+import { ImageService } from '../services/Image.service';
 
 @Component({
   selector: 'app-profile',
@@ -40,7 +42,12 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private httpClientService: HttpClientService,
     private localStorageService: LocalStorageService,
-  ) { }
+    private customNavigationService: CustomNavigationService,
+    private location: Location,
+    private imageService: ImageService
+  ) {
+    this.checkCanGoBack();
+  }
 
   ngOnInit() {
     this.token = this.localStorageService.get('token') ?? '';
@@ -118,6 +125,18 @@ export class ProfileComponent implements OnInit {
           // do nothing
         }
     });
+  }
+
+  checkCanGoBack() {
+    return this.customNavigationService.checkCanGoBack();
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
+  getPostThumbnail(fileName: string) {
+    return this.imageService.getPostThumbnailUrl(fileName);
   }
 
 }

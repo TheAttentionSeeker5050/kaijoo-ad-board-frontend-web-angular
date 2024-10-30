@@ -14,7 +14,7 @@
 <form id="add-or-edit-post-form" [formGroup]="addOrEditPostForm"  (ngSubmit)="submitForm()">
   <!-- make a go back button using page navigation history -->
   <div class="buttons-section">
-    <a class="go-back-button" (click)="goBack()" *ngIf="canGoBack">Go Back</a>
+    <a class="go-back-button" (click)="goBack()" *ngIf="checkCanGoBack()">Go Back</a>
   </div>
 
   <div class="form-group">

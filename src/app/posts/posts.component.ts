@@ -1,4 +1,4 @@
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -8,6 +8,7 @@ import { ClassifiedAdsItem } from '../../models/ClassifiedAd.model';
 
 import { PostListItemComponent } from '../templates/post-list-item/post-list-item.component';
 import { ImageService } from '../services/Image.service';
+import { CustomNavigationService } from '../services/CustomNavigation.service';
 
 // Make a data structure for the posts items
 
@@ -22,10 +23,17 @@ import { ImageService } from '../services/Image.service';
 })
 export class PostsComponent implements OnInit {
 
+
   constructor(
     private httpClientService: HttpClientService,
     private imageService: ImageService,
-  ) { }
+    private location: Location,
+    private customNavigationService: CustomNavigationService
+
+  ) {
+    // Check if can go back
+    this.checkCanGoBack();
+  }
 
   adsList : ClassifiedAdsItem[] = [];
 
@@ -52,6 +60,14 @@ export class PostsComponent implements OnInit {
 
   getPostThumbnail(fileName: string) {
     return this.imageService.getPostThumbnailUrl(fileName);
+  }
+
+  checkCanGoBack() {
+    return this.customNavigationService.checkCanGoBack();
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
 }
