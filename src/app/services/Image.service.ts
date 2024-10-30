@@ -28,7 +28,7 @@ export class ImageService {
 
 
   // Resizes the image file to fit within maxWidth and maxHeight constraints
-  resizeImage(file: File, maxWidth: number = 450, maxHeight: number = 350): Promise<File> {
+  resizeImage(file: File, maxWidth: number = 600, maxHeight: number = 500): Promise<File> {
     return new Promise((resolve, reject) => {
       const img = new Image();
       const canvas = document.createElement('canvas');

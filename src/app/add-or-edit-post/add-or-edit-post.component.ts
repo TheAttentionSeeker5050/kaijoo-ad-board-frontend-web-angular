@@ -54,6 +54,7 @@ export class AddOrEditPostComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
+    private imageService: ImageService
 
   ) {
     this.checkCanGoBack();
@@ -203,7 +204,14 @@ export class AddOrEditPostComponent implements OnInit {
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
+      const file = input.files[0];
+
+      // Resize the selected file before setting it as selectedFile
+      this.imageService.resizeImage(file).then((resizedFile) => {
+        this.selectedFile = resizedFile;
+      }).catch((error) => {
+        console.error('Error resizing image:', error);
+      });
     }
   }
 
