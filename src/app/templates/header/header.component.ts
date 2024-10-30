@@ -14,7 +14,9 @@ import { LocalStorageServiceService } from '../../services/LocalStorageService.s
 })
 export class HeaderComponent {
 
-  constructor(private localStorageService: LocalStorageServiceService) { }
+  constructor(private localStorageService: LocalStorageServiceService) {
+    this.localStorageService.clearIfExpired();
+  }
 
   // Method to either display Profile or Login in the header
   isUserLoggedIn(): boolean {

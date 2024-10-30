@@ -7,7 +7,6 @@ import { LocalStorageServiceService } from '../services/LocalStorageService.serv
 import { HttpClientServiceService } from '../services/HttpClientService.service';
 import { ClassifiedAdsItem } from '../../models/ClassifiedAd.model';
 import { AuthService } from '../services/AuthService.service';
-import e from 'express';
 import { ModalDeletePostComponent } from '../templates/modal-delete-post/modal-delete-post.component';
 
 @Component({

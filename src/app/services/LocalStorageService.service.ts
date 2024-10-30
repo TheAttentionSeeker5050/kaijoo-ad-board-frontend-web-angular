@@ -22,4 +22,22 @@ export class LocalStorageServiceService {
     this.storage.removeItem(key);
   }
 
+  clearIfExpired(key: string = 'token', expirationKey: string = 'expirationDate') {
+
+    // get the expiration date from the local storage
+    const expiration = new Date(this.get(expirationKey) || '').getTime();
+
+    //  if expiration is 0, it means never expire
+    if (expiration === 0) {
+      return;
+    }
+    console.log("expiration", expiration);
+    console.log("Date.now()", Date.now());
+    // if expired parameter is lower than now, remove the key
+    if (expiration < Date.now()) {
+      this.remove(key);
+      this.remove(expirationKey);
+    }
+  }
+
 }

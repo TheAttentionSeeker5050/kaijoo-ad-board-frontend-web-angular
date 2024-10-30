@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/AuthService.service';
-import { Observable } from 'rxjs';
 import { CustomHttpResponseError } from '../../models/CustomHttpResponseError.model';
 import { LocalStorageServiceService } from '../services/LocalStorageService.service';
 

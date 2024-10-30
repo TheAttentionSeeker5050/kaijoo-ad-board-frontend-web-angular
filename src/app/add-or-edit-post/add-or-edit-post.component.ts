@@ -63,8 +63,6 @@ export class AddOrEditPostComponent implements OnInit {
   }
 
   initializeForm() {
-    this.title = 'Add New Classified Ad';
-
     this.addOrEditPostForm = this.formBuilder.group({
       title: [''],
       description: [''],
@@ -123,7 +121,10 @@ export class AddOrEditPostComponent implements OnInit {
           }
         },
         complete: () => {
-
+          // Set the title
+          this.title = this.postId
+            ? `Edit Classified Ad: ${this.addOrEditPostForm.value.title}`
+            : 'Add New Classified Ad';
         }
       });
   }
@@ -186,5 +187,4 @@ export class AddOrEditPostComponent implements OnInit {
       }
     });
   }
-
 }
