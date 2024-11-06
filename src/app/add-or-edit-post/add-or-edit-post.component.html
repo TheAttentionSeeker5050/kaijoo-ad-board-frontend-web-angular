@@ -53,6 +53,44 @@
     <editor apiKey="{{tinyMCEApiKey}}" [init]="init" formControlName="description" required/>
   </div>
 
+  <!-- Make dropdown list category and subcategory, subcategory is disabled and category fetches at first, when category is
+   selected, we fetch the subcategory. Subscribe the changes of cateogry and subcategory to update the other -->
+  <div class="form-group">
+    <label for="category">Category: <strong>*</strong></label>
+    <select class="form-control" id="category" name="category" formControlName="category" required (change)="onCategoryChange($event)">
+      <option value="" disabled selected>Select a category</option>
+      <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="subcategory">Subcategory: </label>
+    <select class="form-control" id="subCategory" name="subCategory" formControlName="subCategory" required>
+      <option value="" disabled selected>Select a subcategory</option>
+      <option *ngFor="let subCategory of subCategories" [value]="subCategory.id">{{subCategory.name}}</option>
+    </select>
+  </div>
+
+  <!-- dropdown tags -->
+  <div class="form-group">
+    <label for="tags">Tags:</label>
+    <input type="text" class="form-control" id="tags" name="tags" formControlName="tags" (input)="onTagInputChange($event)">
+    <!-- make a list of pills of selected tags -->
+    <div id="tag-pills">
+      <div *ngFor="let tag of selectedTags" class="tag-pill">
+        <span>{{tag.name}}</span>
+        <span (click)="removeTag(tag.id)" class="remove-tag">x</span>
+      </div>
+    </div>
+    <!-- make a div as a suggestion list box that updates on input by tag -->
+    <div id="suggestion-list" *ngIf="tags.length > 0">
+      <div *ngFor="let tag of tags" (click)="addTag(tag)" class="suggestion
+      {{tag.name === addOrEditPostForm.value.tags ? 'selected' : ''}}">
+        {{tag.name}}
+      </div>
+    </div>
+  </div>
+
   <div id="btn-group">
     <button type="submit" class="btn btn-primary" id="submit-button" [disabled]="addOrEditPostForm.invalid">Submit</button>
     <button type="button" class="btn btn-secondary" id="cancel-button" (click)="goBack()">Cancel</button>

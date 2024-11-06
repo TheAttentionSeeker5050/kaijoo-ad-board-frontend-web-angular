@@ -17,6 +17,10 @@
     <button class="delete-button" (click)="openDeleteModal()">Delete</button>
   </div>
 
+  <!-- category and subCategory -->
+  <p class="ad-category"><strong>Category:</strong> {{adPost.category.name}}</p>
+  <p class="ad-sub-category"><strong>Sub Category:</strong> {{adPost.subCategory.name}}</p>
+
   <img src="{{getPostThumbnailUrl()}}" alt="{{adPost.title}}">
 
   <h3 class="ad-title">{{adPost.title}}</h3>
@@ -28,6 +32,7 @@
   <p class="ad-phone"><strong>Phone:</strong> {{adPost.phone}}</p>
   <p class="ad-email"><strong>Email:</strong> {{adPost.email}}</p>
   <p class="ad-owner"><strong>Owner:</strong> {{adPost.owner.name}}</p>
+
 </div>
 
 <!-- Delete Confirmation Modal -->
