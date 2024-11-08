@@ -95,6 +95,9 @@ export class AddOrEditPostComponent implements OnInit {
     // call the populate data if the post id is not null
     if (this.postId) {
       this.populateData();
+    } else {
+      this.populateCategories();
+      this.onCategoryChange({ target: { value: this.addOrEditPostForm.value.category } });
     }
   }
 
@@ -270,6 +273,9 @@ export class AddOrEditPostComponent implements OnInit {
               // so only get the error message when this error class is thrown
               throw new CustomHttpResponseError(response.errorMessage, 200);
             }
+            if (!this.postId) {
+              this.postId = response.itemId;
+            }
 
             // If a file was selected, send the multipart request to upload the thumbnail
             if (this.selectedFile && this.postId) {
@@ -301,6 +307,10 @@ export class AddOrEditPostComponent implements OnInit {
   }
 
   onCategoryChange(event: any) {
+    if (!event.target.value) {
+      return;
+    }
+
     // Get the id of the selected category
     const categoryId = event.target.value;
 
